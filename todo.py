@@ -1,57 +1,58 @@
-# TODO Create a main function to run the program that will take a users input
-# TODO Be sure to add error handling for each of the functions to notify user the error. 
-        # Alert the user if they provide invalid input
-        # Alert the user if there are no tasks to view
-        # Alert the user if they try to delete a task that doesn't exist
-        # Alert the user if they select an option on the main menu that doesn't exist
-        
-# TODO Create an empty list to enter todos
-todos = ['task']        
-
-        
-# TODO Create 3 separate functions to ADD, VIEW and REMOVE a todo
+todos = []        
 
 # Add a task
-def add_tasks(task):
-    for t in todos:
-        if t.lower() == task.lower():
-            print(f'{task} already exists. Please enter a new task!')
-        else:
-            return todos.append(task.lower())
+def add_todo():
+    add_input = input('\nWhat task would like to add?: ')
+    todos.append(add_input)
+    print(f'Todo "{add_input}" added!')
 
 # View Tasks
-def view_tasks():
-    for task in todos:
-        print(task)
+def view_todos():
+    if len(todos) == 0:
+        print('No todos to view!')
+    else:
+        print('\nTasks todo!')
+        for index, task in enumerate(todos):
+            print(f'{index + 1}. {task}')
 
 # Delete Tasks
-def delete_task(task):
-    for t in todos:
-        if task.lower() == t:
-            return todos.remove(t)
-
+def delete_todo():
+    view_todos()
+    try:
+        delete_input = int(input('Please select the number of the todo you would like to delete!: '))
+        if delete_input >= 0 and delete_input < len(todos):
+            todos.pop(delete_input - 1) 
+            print(f'Todo {delete_input} has been removed!')
+        else:
+            print('Todo was not found!')
+            view_todos()
+    except:
+        print('Invalid selection.')
 
 def begin_application():
+    
+    
     
     print('Welcome to your personal todo application \n')
     
     while True:
-        print('Please select one of the following \n')
+         
+        print('\nPlease select one of the following \n'
+              '-----------------------------------------')
         print('1. Add Task \n'
               '2. Delete Task \n'
               '3. View Tasks \n'
               '4. Quit Application \n')
         
-        user_selection = int(input('What would you like to do?: '))
+        user_selection = int(input('What would you like to do?: \n'))
         
         if user_selection == 1:
-            add_input = input('\nWhat task would like to add?: ')
-            add_tasks(add_input)
+            add_todo()
             print(todos)
         elif user_selection == 2:
-            break
+            delete_todo()
         elif user_selection == 3:
-            break
+            view_todos()
         elif user_selection == 4:
             break
         else: 
